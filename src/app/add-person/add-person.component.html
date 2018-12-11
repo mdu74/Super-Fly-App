@@ -1,0 +1,52 @@
+<div class="card mb-4 box-shadow">
+  <div class="card-body">
+    <h5 class="card-title">
+      <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+        Add Person
+      </button>
+    </h5>
+
+    <div id="collapseExample" [ngbCollapse]="isCollapsed">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="addName">Name</label>
+          <input type="text" [(ngModel)]="name" name="" class="form-control" id="addName" placeholder="My name is..." required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="addSurname">Surname</label>
+          <input type="text" [(ngModel)]="surname" class="form-control" id="addSurname" placeholder="My surname is...">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputAddress">Details</label>
+        <textarea type="text" [(ngModel)]="description" class="form-control" id="inputAddress" placeholder="My information"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="addDateCreated">Date Created</label>
+          <input type="date" [(ngModel)]="created" class="form-control" id="addDateCreated" >
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-check">
+            <input [(ngModel)]="display" class="form-check-input" type="checkbox" id="gridCheck">
+            <label class="form-check-label" for="gridCheck">
+              Display
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="submit" (click)="addPerson()" class="btn btn-outline-success">Save User Information</button>
+            <button type="submit" class="btn btn-outline-danger">Cancel</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

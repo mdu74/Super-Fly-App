@@ -1,0 +1,14 @@
+<div class="card mb-4 box-shadow">
+  <div class="card-body">
+    <h5 class="card-title">Order By</h5>
+
+    <div class="form-row">
+      <div class="form-group col-md">
+        <select [(ngModel)]="category" id="inputState" class="form-control" (ngModelChange)="filterChangesBy($event)"
+          name="category">
+          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
