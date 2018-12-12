@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 # SuperFlyApp
+=======
+# Super-Fly-App
+Trying out Angular 6 and Firestore
+>>>>>>> 9e05bb779b8b8037a0b2758d2eb5983482c061ef
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
 
