@@ -14,7 +14,12 @@ import swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
 
 export class PeopleComponent  {
   public people: Observable<Person[]>;
-  public closeResult: string;
+  public editFirstName: string;
+  public editSurname: string;
+  public editDescription: string;
+  public editDisplay: string;
+  public editView: string;
+  public editCreated: number;
 
   constructor(private _peopleServices: PeopleService, private modalService: NgbModal) {  }
 
@@ -33,6 +38,8 @@ export class PeopleComponent  {
 
   // Modal
   edit(content) {
+    let person = this._peopleServices.getPersonBy('9AQJTLWumTfo2OOApJDc');
+    
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(success => 
       swal('Saved!',
       'You\'ve updated this person.',
