@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PeopleService } from '../services/people.service';
 import {Person} from '../domain-model/person';
 import swal from 'node_modules/sweetalert2/dist/sweetalert2.all.min.js';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-add-person',
@@ -17,19 +18,26 @@ export class AddPersonComponent {
   public surname: string = '';
   public description: string = '';
   public display: boolean = true;
-  public created: number =  Date.now();
+  public created: number;
   public views: number = 0;
 
   constructor(private _peopleServices: PeopleService) {  }
 
   addPerson(){
-    debugger;
     let person = new Person();
+
     person.name = this.name;
     person.surname = this.surname;
+    person.description = this.description;
+
+    debugger;
+
+    if( _.isUndefined(this.created) || _.isNull(this.created)){
+      person.created = Date.now();
+    }else{
+      person.created = this.created;
+    }
+
     this._peopleServices.createNewPerson(person)
-    /*
-    I'll have to sort this out because I don't know how to user the FireStore service to add stuff
-    */
   }
 }

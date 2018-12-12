@@ -23,7 +23,8 @@ export class PeopleComponent  {
     this.people = this._peopleServices.getAllPeopleOrderedBy($event);
   }
 
-  deletePerson(personId: string){
-    this._peopleServices.delete(personId);
+  delete(person: Person){
+    debugger;
+    this._peopleServices.deletePerson(person.personId);
   }
 }

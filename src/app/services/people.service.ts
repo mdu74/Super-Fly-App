@@ -16,8 +16,22 @@ export class PeopleService {
   public peopleDoc:  AngularFirestoreDocument<Person>;
   public personId: string;
 
+  public people: Observable<any[]>
+
   constructor(public db: AngularFirestore) { 
     this.myAppInfoDb = db;
+
+    let collectionOfPeople = db.collection('MyAppInfo');
+
+    this.people = collectionOfPeople.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Person;
+          const id = a.payload.doc.id;
+          return { id, data };
+        })
+      })
+    );
   }
 
   getAllPeople(): Observable<Person[]>{
@@ -55,25 +69,29 @@ export class PeopleService {
   }
 
   addPerson(person: Person): void{
-    let personData = JSON.parse(JSON.stringify(person));
+    let personBlob = JSON.parse(JSON.stringify(person));
+
     this.myAppInfoDb.collection<Person>('MyAppInfo')
-                    .add(personData)
-                    .then( _  => swal(_.id, 'Data has been added'));
+                    .add(personBlob)
+                    .then( _  => swal(_.id + personBlob.name, 'Data has been added'));
   }
 
-  createNewPerson(person: Person): void{
-    let personData = JSON.parse(JSON.stringify(person));
-    
-    this.myAppInfoDb.collection('MyAppInfo').add({'name': person.name , 'surname': person.surname});
+  createNewPerson(person: Person): void{    
+    let personBlob = JSON.parse(JSON.stringify(person));
+    debugger;
+    this.myAppInfoDb.collection('MyAppInfo')
+                    .add(personBlob)
+                    .then( _  => swal(_.id + ' ' + personBlob.name, 'Has been added'));
   }
 
   updatePerson(id: string, person: Person): void{
-    this.myAppInfoDb.doc<Person>(`MyAppInfo}`).update(person);
+    this.myAppInfoDb.doc<Person>('MyAppInfo').update(person);
   }
 
-  delete(personId: string): void{
-    // this.myAppInfoDb.collection<Person>('MyAppInfo').doc('Q18l3EbyoQ6Q6DGTYB2A').delete();
-    
-    this.myAppInfoDb.collection<Person>('MyAppInfo').doc(personId).delete();
-  }  
+  deletePerson(personId): void{ 
+
+    console.log(this.people);
+    debugger;
+    console.log(personId);
+  }
 }
