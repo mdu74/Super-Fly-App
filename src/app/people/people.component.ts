@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { PeopleService } from '../services/people.service';
 import { Observable } from 'rxjs';
 import { Person } from '../domain-model/person';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-people',
@@ -11,9 +13,10 @@ import { Person } from '../domain-model/person';
 })
 
 export class PeopleComponent  {
- public people: Observable<Person[]>;
+  public people: Observable<Person[]>;
+  public closeResult: string;
 
-  constructor(private _peopleServices: PeopleService) {  }
+  constructor(private _peopleServices: PeopleService, private modalService: NgbModal) {  }
 
   ngOnInit() {
     this.people = this._peopleServices.getAllPeople();
@@ -26,5 +29,14 @@ export class PeopleComponent  {
   delete(person: Person){
     debugger;
     this._peopleServices.deletePerson(person.personId);
+  }
+
+  // Modal
+  edit(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(success => 
+      swal('Saved!',
+      'You\'ve updated this person.',
+      'success')
+    );
   }
 }

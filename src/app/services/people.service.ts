@@ -78,10 +78,10 @@ export class PeopleService {
 
   createNewPerson(person: Person): void{    
     let personBlob = JSON.parse(JSON.stringify(person));
-    debugger;
+    
     this.myAppInfoDb.collection('MyAppInfo')
                     .add(personBlob)
-                    .then( _  => swal(_.id + ' ' + personBlob.name, 'Has been added'));
+                    .then( _  => swal('Saved!', personBlob.name + ' has been added', 'success'));
   }
 
   updatePerson(id: string, person: Person): void{
