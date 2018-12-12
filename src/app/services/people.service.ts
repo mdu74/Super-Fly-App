@@ -62,23 +62,16 @@ export class PeopleService {
   }
 
   getPersonBy(personId: string): any{
-    /*
     let person = this.myAppInfoDb
                           .collection<Person>('MyAppInfo', ref => ref
-                          .where("name", "==", name)
-                          .where("surname", "==", surname));
-    */
-
-    let personRef = this.myAppInfoDb.collection<Person>('MyAppInfo');
-    let person = personRef.doc(personId).get().then();
-
-    debugger;
+                          .where("personId", "==", personId));
+    
 
     return person;
   }
 
 
-  
+
   addPerson(person: Person): void{
     let personBlob = JSON.parse(JSON.stringify(person));
 
